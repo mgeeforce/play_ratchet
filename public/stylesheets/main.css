@@ -1,0 +1,9 @@
+.detail {
+	  font-size: 13px;
+	  padding-right: 55px;
+}
+
+.detail .description {
+	font-size: 12px;
+	font-style: italic;
+}

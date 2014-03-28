@@ -1,0 +1,44 @@
+@(detail: Detail, user: User)
+
+@mobilemain {
+
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+      	<h1 class="title">title</h1>
+    </header>
+
+    <div class="bar bar-footer">
+  		<a class="icon icon-trash pull-left"></a>
+	</div>
+	
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+      <div class="card">
+		<form class="input-group" action="#" method="POST">
+		  <div class="input-row">
+		    <label>Date</label>
+		    <input type="text" name="date" placeholder="2014-03-02" value="@detail.date.format("YYYY-MM-DD")"/>
+		  </div>
+		  <div class="input-row">
+		    <label>Type</label>
+		    <select name="category">
+		    	<option value="Accomodation">Accomodation</option>
+		    	<option value="Meals" selected>Meals</option>
+		    </select>
+		  </div>
+		  <div class="input-row">
+		    <label>Description</label>
+		    <input type="text" name="description" placeholder="description" value="@detail.name"/>
+		  </div>
+		  <div class="input-row">
+		    <label>Amount</label>
+		    <input type="text" name="amount" placeholder="$0.00" value="@detail.amount"/>
+		  </div>
+		</form>
+      </div>
+    </div>
+    
+
+
+}

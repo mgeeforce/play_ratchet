@@ -1,0 +1,35 @@
+@(title:String, list: List[ReportSummary], user: User)
+
+@mobilemain {
+
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+	    <a class="icon icon-compose pull-right" href="#">
+	  	</a>
+      	<h1 class="title">@title</h1>
+    </header>
+
+    <div class="bar bar-footer">
+
+	</div>
+	
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+      <div class="card">
+        <ul class="table-view">
+        	@for(i <- list) {
+	          <li class="table-view-cell">
+	            <a class="navigate-right" href="@routes.Parents.listForStatus(i.status.toString())" data-transition="slide-in">
+	              <span class="badge @i.status.badgeClass">@i.count</span>  
+	              <strong>@i.status</strong>
+	            </a>
+	          </li>
+	          }
+        </ul>
+      </div>
+    </div>
+    
+
+
+}

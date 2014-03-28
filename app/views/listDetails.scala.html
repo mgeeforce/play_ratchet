@@ -1,0 +1,40 @@
+@(title:String, report: Parent, user: User)
+
+@mobilemain {
+
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+	    <a class="btn btn-link pull-left" id="edit" href="@routes.Parents.editParent(report.id)">
+	    	Edit
+	  	</a>
+	   <a class="icon icon-compose pull-right" href="#">
+	  	</a>
+	  	<h1 class="title">@title</h1>
+    </header>
+
+    <div class="bar bar-footer">
+  		<a class="icon icon-left pull-left" href="@routes.Parents.listForStatus(report.status.toString())" data-transition="slide-out"></a>
+  		<a class="icon icon-share pull-right" href="#"></a>
+	</div>
+	
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+      <div>Report Total: $@("%.2f".format(report.getTotal()))</div>
+      <div class="card">
+        <ul class="table-view">
+        	@for(i <- report.details) {
+	          <li class="table-view-cell detail">
+	            <a href="@routes.Details.getDetail(i.id)" data-transition="slide-in">
+	              <div><span>@i.date.format("YYYY-MM-dd"): </span>@i.category<span class="pull-right">@("%.2f".format(i.amount))</span></div>
+	              <div><span class="description pull-left">@i.description </span><a class="pull-right" href="#">receipt</a></div>	
+	            </a>
+	          </li>
+	          }
+        </ul>
+      </div>
+    </div>
+    
+
+
+}

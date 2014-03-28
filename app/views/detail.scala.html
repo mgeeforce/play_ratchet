@@ -1,0 +1,48 @@
+@(detail: Detail, user: User)
+
+@mobilemain {
+
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+	    <a class="btn btn-link pull-left" id="edit" href="@routes.Details.editDetail(detail.id)">
+	    	Edit
+	  	</a>
+      	<h1 class="title">Detail</h1>
+    </header>
+
+    <div class="bar bar-footer">
+  		<a class="icon icon-left pull-left" href="@routes.Parents.getParent(detail.parent.id)" data-transition="slide-out"></a>
+  		<a class="icon icon-trash pull-right"></a>
+	</div>
+	
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+      <div class="card">
+		  <div class="input-row">
+		    <label>Date </label>
+		    <span>@detail.date.format("YYYY-MM-DD")</span>
+		  </div>
+		  <div class="input-row">
+		    <label>Type </label>
+		    <div> @detail.category</div>
+		  </div>
+		  <div class="input-row">
+		    <label>Amount </label>
+		    <div> @("%.2f".format(detail.amount))</div>
+		  </div>
+		  <div class="input-row">
+		    <label>Description </label>
+		    <div> @detail.name</div>
+		  </div>
+		  <div class="input-row">
+		    <label>Description </label>
+		    <div> @detail.name</div>
+		  </div>
+
+      </div>
+    </div>
+    
+
+
+}

@@ -1,0 +1,36 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+GET		/login						controllers.Application.login
+POST    /login                      controllers.Application.authenticate
+GET     /logout                     controllers.Application.logout
+GET		/mobile						controllers.Application.mobile
+
+# Parents
+GET		/parents					controllers.Parents.getSummary
+#GET		/parents/new				controllers.Parents.create
+GET		/parents/:status			controllers.Parents.listForStatus(status:String)
+GET		/parent/:id					controllers.Parents.getParent(id:Long)
+GET		/parent/edit/:id			controllers.Parents.editParent(id:Long)
+GET		/api/v1/parents				controllers.Parents.list
+GET		/api/v1/parents/:id			controllers.Parents.get(id:Long)
+POST	/api/v1/parents				controllers.Parents.create
+PUT		/api/v1/parents/:id			controllers.Parents.update(id:Long)
+DELETE	/api/v1/parents/:id			controllers.Parents.delete(id:Long)
+
+# Children
+GET		/detail/:id					controllers.Details.getDetail(id:Long)
+GET		/detail/edit/:id			controllers.Details.editDetail(id:Long)
+GET		/api/v1/details				controllers.Details.list
+GET		/api/v1/details/:id			controllers.Details.get(id:Long)
+POST	/api/v1/details				controllers.Details.create
+PUT		/api/v1/details/:id			controllers.Details.update(id:Long)
+DELETE	/api/v1/details/:id			controllers.Details.delete(id:Long)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /webjars/*file              controllers.WebJarAssets.at(file)
+GET     /javascriptRoutes          controllers.Application.javascriptRoutes()

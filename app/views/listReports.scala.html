@@ -1,0 +1,39 @@
+@(title:String, list: List[Parent], user: User)
+
+@mobilemain {
+
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+	    <a class="btn btn-link pull-left" href="#">
+	    	Edit
+	  	</a>
+	   <a class="icon icon-compose pull-right" href="#">
+	  	</a>
+      	<h2 class="title">@title</h2>
+    </header>
+
+    <div class="bar bar-footer">
+  		<a class="icon icon-left pull-left" href="@routes.Parents.getSummary()" data-transition="slide-out"></a>
+	</div>
+	
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+      <div class="card">
+        <ul class="table-view">
+        	@for(i <- list) {
+	          <li class="table-view-cell">
+	            <a class="navigate-right" href="@routes.Parents.getParent(i.id)" data-transition="slide-in">
+	              <p>@i.date</p>
+	              @i.name
+	              <p>Total: @("%.2f".format(i.getTotal()))</p>
+	            </a>
+	          </li>
+	          }
+        </ul>
+      </div>
+    </div>
+    
+
+
+}

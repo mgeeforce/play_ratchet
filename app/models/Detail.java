@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.avaje.ebean.Page;
 import com.avaje.ebean.annotation.CreatedTimestamp;
@@ -58,6 +59,9 @@ public class Detail extends Model {
     	Meals,
     	Admin
     }
+    
+	@OneToOne
+	public Attachment attachment;
     
     /**
      * Generic query helper for entity Computer with id Long

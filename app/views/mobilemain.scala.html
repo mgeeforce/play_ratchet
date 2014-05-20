@@ -7,14 +7,15 @@
 	    <title>Mobile App</title>
 	    <meta charset="utf-8">
 	    <!-- Sets initial viewport load and disables zooming  -->
-	    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 	    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
 	    <meta name="apple-mobile-web-app-capable" content="yes">
 	    <meta name="apple-mobile-web-app-status-bar-style" content="black">        
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/ratchet.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/ratchet.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/ratchet-theme-ios.min.css")">
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
         
-		<script type="text/javascript" src="@routes.Assets.at("javascripts/ratchet.js")"></script>
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/ratchet.min.js")"></script>
     	<script type="text/javascript" src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
     	<script type="text/javascript" src="@routes.Assets.at("javascripts/play_ratchet.js")"></script>
 		<script type="text/javascript" src="@routes.Application.javascriptRoutes()"></script>

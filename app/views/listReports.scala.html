@@ -19,19 +19,17 @@
 	
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-      <div class="card">
         <ul class="table-view">
         	@for(i <- list) {
 	          <li class="table-view-cell">
 	            <a class="navigate-right" href="@routes.Parents.getParent(i.id)" data-transition="slide-in">
 	              <p>@i.date</p>
 	              @i.name
-	              <p>Total: @("%.2f".format(i.getTotal()))</p>
+	              <p>Total: @("%.2f".format(i.getTotal())) <span class="pull-right">Items: @i.details.size()</p>
 	            </a>
 	          </li>
 	          }
         </ul>
-      </div>
     </div>
     
 

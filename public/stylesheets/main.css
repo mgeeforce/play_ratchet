@@ -7,3 +7,14 @@
 	font-size: 12px;
 	font-style: italic;
 }
+
+.report {
+	font-size: 13px;
+	padding-left: 8px;
+	padding-top: 4px;
+	padding-right: 8px;
+}
+
+.label {
+	font-weight: bold;
+}

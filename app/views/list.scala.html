@@ -5,11 +5,13 @@
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
-	    <a class="icon icon-compose pull-right" href="#">
-	  	</a>
+	    <a class="icon icon-compose pull-right" href="#composeModal"></a>
       	<h1 class="title">@title</h1>
     </header>
 
+	<div class="bar bar-standard bar-header-secondary">
+	  <button class="btn btn-block">New Expense Report</button>
+	</div>
     <div class="bar bar-footer">
 
 	</div>
@@ -28,7 +30,28 @@
 	          }
         </ul>
       </div>
+    	<div class="bar bar-standard ">
+	  <button class="btn btn-block">New Receipt</button>
+	</div>
+    <div class="bar bar-footer">
+    
     </div>
+    
+        <!-- Compose modal -->
+    <div id="composeModal" class="modal">
+      <header class="bar bar-nav">
+        <a class="icon icon-left pull-left" href="#composeModal"></a>
+        <h1 class="title">New note</h1>
+      </header>
+
+      <div class="content">
+        <form class="content-padded" action="/api/v1/parents" method="post">
+          <input type="text" name="name" placeholder="Title">
+		  <input type="text" name="date" placeholder="Report date">
+		            <a class="btn btn-positive btn-block" href="#composeModal">Save note</a>
+        </form>
+      </div>
+    </div><!-- /.modal -->
     
 
 

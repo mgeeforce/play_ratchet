@@ -21,7 +21,7 @@
       <div class="card">
 		  <div class="input-row">
 		    <label>Date </label>
-		    <span>@detail.date.format("YYYY-MM-DD")</span>
+		    <span>@detail.date.format("yyyy-MM-dd")</span>
 		  </div>
 		  <div class="input-row">
 		    <label>Type </label>
@@ -37,7 +37,11 @@
 		  </div>
 		  <div class="input-row">
 		    <label>Description </label>
-		    <div> @detail.name</div>
+		    <div> @detail.description</div>
+		  </div>
+		  <div class="input-row">
+		    <label>Attachment</label>
+		    <input type="file" name="attachment"  value=""/>
 		  </div>
 
       </div>

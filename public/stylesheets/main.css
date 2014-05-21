@@ -1,6 +1,6 @@
 .detail {
 	  font-size: 13px;
-	  padding-right: 55px;
+	  /*padding-right: 55px;*/
 }
 
 .detail .description {
@@ -18,3 +18,9 @@
 .label {
 	font-weight: bold;
 }
+select.detail  {
+	width: 203px;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+

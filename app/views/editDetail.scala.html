@@ -1,4 +1,6 @@
-@(detail: Detail, user: User)
+@(detail: Detail, user: User, detailForm: Form[Detail])
+
+@import helper._
 
 @mobilemain {
 
@@ -14,29 +16,49 @@
 	
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-      <div class="card">
-		<form class="input-group" action="#" method="POST">
+    			 @if(detailForm.hasErrors) {
+			 <div style="margin: 15px;">
+			    <div class="alert alert-danger">
+			        <a class="close" data-dismiss="alert">x</a>
+			        @if(detailForm.errors.size() > 0) {
+			            @for((key, value) <- detailForm.errors) {
+		                    @for(err <- value) {
+		                        @err.message().toString() + @key
+			                }
+			            }
+			        } else {No error returned.}
+			    </div>
+			    </div>
+			  }
+		@form(action = routes.Details.updateDetail(detail.id), 'enctype -> "multipart/form-data") {
 		  <div class="input-row">
 		    <label>Date</label>
-		    <input type="text" name="date" placeholder="2014-03-02" value="@detail.date.format("YYYY-MM-DD")"/>
+		    <input type="date" name="date" placeholder="2014-03-02" value="@detail.date.format("yyyy-MM-dd")"/>
 		  </div>
 		  <div class="input-row">
 		    <label>Type</label>
-		    <select name="category">
+		    <select name="category" class="detail">
 		    	<option value="Accomodation">Accomodation</option>
 		    	<option value="Meals" selected>Meals</option>
 		    </select>
 		  </div>
 		  <div class="input-row">
+		    <label>Name</label>
+		    <input type="text" name="name" placeholder="name" value="@detail.name"/>
+		  </div>		  <div class="input-row">
 		    <label>Description</label>
-		    <input type="text" name="description" placeholder="description" value="@detail.name"/>
+		    <input type="text" name="description" placeholder="description" value="@detail.description"/>
 		  </div>
 		  <div class="input-row">
 		    <label>Amount</label>
 		    <input type="text" name="amount" placeholder="$0.00" value="@detail.amount"/>
 		  </div>
-		</form>
-      </div>
+		  <div class="input-row">
+		    <label>Attachment</label>
+		    <input type="file" name="attachment"  value=""/>
+		  </div>
+		  	<button class="btn btn-positive btn-block">Submit</button>
+}
     </div>
     
 

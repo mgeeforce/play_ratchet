@@ -26,7 +26,7 @@
         	@for(i <- report.details) {
 	          <li class="table-view-cell detail">
 	            <a href="@routes.Details.getDetail(i.id)" data-transition="slide-in">
-	              <div><span>@i.date.format("YYYY-MM-dd"): </span>@i.category<span class="pull-right">@("%.2f".format(i.amount))</span></div>
+	              <div><span>@i.date.format("yyyy-MM-dd"): </span>@i.category<span class="pull-right">@("%.2f".format(i.amount))</span></div>
 	              <div><span class="description pull-left">@i.description </span><a class="pull-right" href="#">receipt</a></div>	
 	            </a>
 	          </li>

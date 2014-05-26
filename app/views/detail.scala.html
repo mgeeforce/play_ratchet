@@ -21,29 +21,30 @@
       <div class="card">
 		  <div class="input-row">
 		    <label>Date </label>
-		    <span>@detail.date.format("yyyy-MM-dd")</span>
+		    <div class="value">@detail.date.format("yyyy-MM-dd")</div>
 		  </div>
 		  <div class="input-row">
 		    <label>Type </label>
-		    <div> @detail.category</div>
+		    <div class="value"> @detail.category</div>
 		  </div>
 		  <div class="input-row">
 		    <label>Amount </label>
-		    <div> @("%.2f".format(detail.amount))</div>
+		    <div class="value"> @("%.2f".format(detail.amount))</div>
 		  </div>
 		  <div class="input-row">
 		    <label>Description </label>
-		    <div> @detail.name</div>
+		    <div class="value"> @detail.name</div>
 		  </div>
 		  <div class="input-row">
 		    <label>Description </label>
-		    <div> @detail.description</div>
+		    <div class="value"> @detail.description</div>
 		  </div>
+		  @if(detail.attachment != null) {
 		  <div class="input-row">
 		    <label>Attachment</label>
-		    <input type="file" name="attachment"  value=""/>
+		    <img class="value thumb" src="http://placehold.it/24x24">
 		  </div>
-
+		   }
       </div>
     </div>
     

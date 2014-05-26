@@ -31,7 +31,6 @@ public class Detail extends Model {
 	@Id
     public Long id;
     
-    @Required
     public String name;
     
     @Required
@@ -57,12 +56,24 @@ public class Detail extends Model {
     	Accomodation,
     	Fuel,
     	Meals,
+    	Race,
     	Admin
     }
     
 	@OneToOne
 	public Attachment attachment;
     
+	public Detail(Long parentId) {
+		this.parent = Parent.find.byId(parentId);
+	}
+	
+	public Detail(String name, BigDecimal amount, String category, String description) {
+		this.name = name;
+		this.amount = amount;
+		this.category = Category.valueOf(category);
+		this.description = description;
+	}
+	
     /**
      * Generic query helper for entity Computer with id Long
      */

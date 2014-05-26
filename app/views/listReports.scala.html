@@ -23,9 +23,8 @@
         	@for(i <- list) {
 	          <li class="table-view-cell">
 	            <a class="navigate-right" href="@routes.Parents.getParent(i.id)" data-transition="slide-in">
-	              <p>@i.date</p>
-	              @i.name
-	              <p>Total: @("%.2f".format(i.getTotal())) <span class="pull-right">Items: @i.details.size()</p>
+	              <div><span class="report-name">@i.name</span><span class="report-details pull-right">@i.date.format("yyyy-MM-dd")</span></div>
+	              <div class="report-details">Total: @("%.2f".format(i.getTotal())) <span class="pull-right">Items: @i.details.size()</div>
 	            </a>
 	          </li>
 	          }

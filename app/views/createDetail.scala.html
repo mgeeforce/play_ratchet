@@ -1,13 +1,15 @@
-@(detail: Detail, user: User, detailForm: Form[Detail])
+@(user: User, detailForm: Form[Detail])
 
 @import helper._
+
+
 
 @mobilemain {
 
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
-      	<h1 class="title">title</h1>
+      	<h1 class="title">Create Transaction</h1>
     </header>
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
@@ -26,19 +28,15 @@
 			    </div>
 			    </div>
 			  }
-		@form(action = routes.Details.updateDetail(detail.id), 'enctype -> "multipart/form-data") {
+		@form(action = routes.Details.saveDetail(), 'enctype -> "multipart/form-data") {
+		  <input type="hidden" name="parent.id" value="@detailForm.get().parent.id">
 		  <div class="input-row">
-		  	<label>Project</label>	
-		  	<select name="parent.id" class="detail">
-		  		<option class="blank" value="">Not assigned</option>
-		  		@for((option) <- Parent.options()) {
-		  			<option value="@option._1">@option._2</option>
-		  		}
-		  	</select>
+		  	<label>Project</label>
+		  	<input type="text" value="@detailForm.get().parent.name" readonly>
 		  </div>
 		  <div class="input-row">
 		    <label>Date</label>
-		    <input type="date" name="date" placeholder="2014-03-02" value="@detail.date.format("yyyy-MM-dd")"/>
+		    <input type="date" name="date" placeholder="2014-03-02">
 		  </div>
 		  <div class="input-row">
 		    <label>Type</label>
@@ -50,22 +48,24 @@
 		  </div>
 		  <div class="input-row">
 		    <label>Name</label>
-		    <input type="text" name="name" placeholder="name" value="@detail.name"/>
-		  </div>		  <div class="input-row">
+		    <input type="text" name="name" placeholder="name">
+		  </div>		  
+		  <div class="input-row">
 		    <label>Description</label>
-		    <input type="text" name="description" placeholder="description" value="@detail.description"/>
+		    <input type="text" name="description" placeholder="description">
 		  </div>
 		  <div class="input-row">
 		    <label>Amount</label>
-		    <input type="text" name="amount" placeholder="$0.00" value="@detail.amount"/>
+		    <input type="text" name="amount" placeholder="$0.00">
 		  </div>
 		  <div class="input-row">
 		    <label>Attachment</label>
-		    <input class="file" type="file" name="attachment"  value=""/>
+		    <input class="file" type="file" name="attachment"/>
 		  </div>
 		  <div class="content-padded"><button class="btn btn-positive btn-block">Submit</button></div>	
-		}
-		  <div class="content-padded"><a class="btn btn-negative btn-block" href="@routes.Details.getDetail(detail.id)">Cancel</a></div>				
+}
+		  <div class="content-padded"><a class="btn btn-negative btn-block" href="@routes.Parents.getParent(detailForm.get().parent.id)">Cancel</a></div>				
+
     </div>
     
 

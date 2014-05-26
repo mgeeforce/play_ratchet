@@ -3,10 +3,17 @@
 	  /*padding-right: 55px;*/
 }
 
-.detail .description {
-	font-size: 12px;
-	font-style: italic;
+.detail .date {
+	font-size: 11px;
+	color: #777;
+	line-height: 18px;
 }
+
+.detail .description {
+	font-size: 11px;
+	font-style: italic;
+	color: #777;
+	line-height: 18px;}
 
 .report {
 	font-size: 13px;
@@ -24,3 +31,59 @@ select.detail  {
 	margin-right: 5px;
 }
 
+.input-row {
+	background-color: #fff;
+}
+
+.input-row .file {
+	font-size: 11px;
+	padding-top: 8px;
+	padding-left: 8px;
+}
+
+.input-row .value {
+  float: right;
+  width: 65%;
+  padding: 8px 15px;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  /*line-height: 1.1;*/
+  color: #666;
+}
+
+.input-row .value.thumb {
+	width: auto;
+	float: left;
+	padding-top: 5px;
+}
+
+.content {
+	background-color: #001C58;
+}
+
+.title {
+	background-color: #001C58;
+}
+
+.bar-nav .title {
+	color: #ffffff;
+}
+
+.bar-nav a.icon {
+	color: #fff;
+}
+
+.bar-nav a.btn {
+	color: #fff;
+}
+
+.table-view-cell .report-name {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+  	color: #111;
+  	font-weight: bold;
+}
+
+.table-view-cell .report-details {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+  	color: #777;
+  	font-size: 12px;
+}

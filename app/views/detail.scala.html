@@ -32,7 +32,7 @@
 		    <div class="value"> @("%.2f".format(detail.amount))</div>
 		  </div>
 		  <div class="input-row">
-		    <label>Description </label>
+		    <label>Name </label>
 		    <div class="value"> @detail.name</div>
 		  </div>
 		  <div class="input-row">
@@ -42,7 +42,9 @@
 		  @if(detail.attachment != null) {
 		  <div class="input-row">
 		    <label>Attachment</label>
-		    <img class="value thumb" src="http://placehold.it/24x24">
+			    <a href="/assets/attachments/@detail.attachment.filename">
+			    	<div class="value"><img class="value thumb" src="http://placehold.it/24x24"> @detail.attachment.filename</div>
+			    </a>
 		  </div>
 		   }
       </div>

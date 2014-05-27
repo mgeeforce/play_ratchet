@@ -32,7 +32,7 @@
 		  	<select name="parent.id" class="detail">
 		  		<option class="blank" value="">Not assigned</option>
 		  		@for((option) <- Parent.options()) {
-		  			<option value="@option._1">@option._2</option>
+		  			<option value="@option._1" @if(detailForm("parent.id").value.equals(option._1)){selected="selected"}>@option._2</option>
 		  		}
 		  	</select>
 		  </div>
@@ -51,7 +51,8 @@
 		  <div class="input-row">
 		    <label>Name</label>
 		    <input type="text" name="name" placeholder="name" value="@detail.name"/>
-		  </div>		  <div class="input-row">
+		  </div>		  
+		  <div class="input-row">
 		    <label>Description</label>
 		    <input type="text" name="description" placeholder="description" value="@detail.description"/>
 		  </div>
@@ -59,13 +60,22 @@
 		    <label>Amount</label>
 		    <input type="text" name="amount" placeholder="$0.00" value="@detail.amount"/>
 		  </div>
+		  @if(detail.attachment != null) {
 		  <div class="input-row">
 		    <label>Attachment</label>
-		    <input class="file" type="file" name="attachment"  value=""/>
+			    <a href="/assets/attachments/@detail.attachment.filename">
+			    	<div class="value"><img class="value thumb" src="http://placehold.it/24x24"> @detail.attachment.filename</div>
+			    </a>
 		  </div>
+		   } else {
+			  <div class="input-row">
+			    <label>Attachment</label>
+			    <input class="file" type="file" name="attachment">
+			  </div>
+		   }
 		  <div class="content-padded"><button class="btn btn-positive btn-block">Submit</button></div>	
 		}
-		  <div class="content-padded"><a class="btn btn-negative btn-block" href="@routes.Details.getDetail(detail.id)">Cancel</a></div>				
+		  <div class="content-padded"><a href="@routes.Details.getDetail(detail.id)"><button class="btn btn-negative btn-block" >Cancel</button></a></div>				
     </div>
     
 

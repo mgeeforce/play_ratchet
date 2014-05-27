@@ -30,7 +30,7 @@ public class Details extends Controller {
 	
 	public static Result editDetail(Long id) {
 		Detail d = Detail.find.byId(id);
-		Form<Detail> form = form(Detail.class);
+		Form<Detail> form = form(Detail.class).fill(d);
 		return ok(editDetail.render(d, User.findByEmail(request().username()), form));
 	}
 	
@@ -65,25 +65,31 @@ public class Details extends Controller {
         MultipartFormData body = request().body().asMultipartFormData();
         FilePart attachment = body.getFile("attachment");
         if (attachment != null) {
-        	File file = attachment.getFile();
-            //file.renameTo(new File(Play.application().configuration().getString("uploadPath"), attachment.getFilename()));
-            try {
-            	Path source = Paths.get(file.getAbsolutePath());
-            	Path target = Paths.get(Play.application().configuration().getString("uploadPath"), attachment.getFilename());
-            	Files.move(source, target);
-            } catch (FileAlreadyExistsException e) {
-            	//TODO: there needs to be a Files.exists(target) check above and method to increment to make unique
-            	Logger.error("File already exists and needs renaming!!");
-            } catch (Exception e) {
-            	Logger.error(e.toString());
-            }
-            Attachment a = new Attachment(attachment.getFilename(), file.getAbsolutePath(), attachment.getContentType());
-            a.save();
-            detail.attachment = a;
+            detail.attachment = saveAttachment(attachment);
         }
         if(detail.attachment != null) {Logger.info("Detail.attachment.id = "+detail.attachment.id);};
 		detail.save();
 		return redirect(routes.Details.getDetail(detail.id));
+	}
+	
+	private static Attachment saveAttachment(FilePart attachment) {
+    	File file = attachment.getFile();
+        //file.renameTo(new File(Play.application().configuration().getString("uploadPath"), attachment.getFilename()));
+    	String path = null;
+        try {
+        	Path source = Paths.get(file.getAbsolutePath());
+        	Path target = Paths.get(Play.application().configuration().getString("uploadPath"), attachment.getFilename());
+        	Files.move(source, target);
+        	path = target.toString();
+        } catch (FileAlreadyExistsException e) {
+        	//TODO: there needs to be a Files.exists(target) check above and method to increment to make unique
+        	Logger.error("File already exists and needs renaming!!");
+        } catch (Exception e) {
+        	Logger.error(e.toString());
+        }
+        Attachment a = new Attachment(attachment.getFilename(), path, attachment.getContentType());
+        a.save();
+        return a;
 	}
 	
 	public static Result delete(Long id) {
@@ -108,6 +114,8 @@ public class Details extends Controller {
 	   if(detailForm.hasErrors()) {
 		   return badRequest(editDetail.render(d, User.findByEmail(request().username()), detailForm));
 	   }
+	   //handle a change in file upload
+	   
 	   detailForm.get().update(id);
 	   flash("success", "Detail has been updated.");
 	   return redirect(routes.Details.getDetail(id));

@@ -30,6 +30,8 @@ public class Detail extends Model {
 
 	@Id
     public Long id;
+	
+	public String merchant;
     
     public String name;
     

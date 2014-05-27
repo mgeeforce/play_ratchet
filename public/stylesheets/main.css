@@ -1,11 +1,17 @@
 .detail {
 	  font-size: 13px;
-	  /*padding-right: 55px;*/
+	padding-top: 9px;
+    padding-bottom: 9px;
 }
 
 .detail .date {
 	font-size: 11px;
 	color: #777;
+	line-height: 1.1;
+}
+
+.detail .deets {
+	font-size: 13px;
 	line-height: 18px;
 }
 
@@ -76,6 +82,10 @@ select.detail  {
 	color: #fff;
 }
 
+.report.details {
+	color: #fff;
+}
+
 .table-view-cell .report-name {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
   	color: #111;
@@ -86,4 +96,10 @@ select.detail  {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
   	color: #777;
   	font-size: 12px;
+}
+
+.table-view-cell .detail {
+	padding-top: 9px;
+	padding-left: 12px;
+	padding-bottom: 9px;
 }

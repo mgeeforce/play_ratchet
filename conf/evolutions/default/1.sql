@@ -9,6 +9,15 @@ create table attachment (
   constraint pk_attachment primary key (id))
 ;
 
+create table attachment (
+  id                        bigint auto_increment not null,
+  filename                  varchar(255),
+  path                      varchar(255),
+  content_type              varchar(255),
+  created                   datetime not null,
+  constraint pk_attachment primary key (id))
+;
+
 create table detail (
   id                        bigint auto_increment not null,
   name                      varchar(255),
@@ -19,7 +28,7 @@ create table detail (
   description               varchar(255),
   attachment_id             bigint,
   created                   datetime not null,
-  constraint ck_detail_category check (category in (0,1,2,3)),
+  constraint ck_detail_category check (category in (0,1,2,3,4)),
   constraint pk_detail primary key (id))
 ;
 

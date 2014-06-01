@@ -5,38 +5,40 @@
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
-	    <a class="icon icon-compose pull-right" href="#composeModal"></a>
+    	<a class="icon icon-bars pull-left" href="#menu"></a>
+	    <a class="icon icon-plus pull-right" href="#composeModal"></a>
       	<h1 class="title">@title</h1>
     </header>
 
-	<div class="bar bar-standard bar-header-secondary">
-	  <button class="btn btn-block">New Expense Report</button>
-	</div>
-    <div class="bar bar-footer">
-
-	</div>
 	
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-      <div class="card">
-        <ul class="table-view">
-        	@for(i <- list) {
-	          <li class="table-view-cell">
-	            <a class="navigate-right" href="@routes.Parents.listForStatus(i.status.toString())" data-transition="slide-in">
-	              <span class="badge @i.status.badgeClass">@i.count</span>  
-	              <strong>@i.status</strong>
-	            </a>
-	          </li>
-	          }
-        </ul>
-      </div>
-    	<div class="bar bar-standard ">
-	  <button class="btn btn-block">New Receipt</button>
-	</div>
-    <div class="bar bar-footer">
-    
+   
+      	<div class="card">
+	        <ul class="table-view">
+	        	@for(i <- list) {
+		          <li class="table-view-cell">
+		            <a class="navigate-right" href="@routes.Parents.listForStatus(i.status.toString())" data-transition="slide-in">
+		              <span class="badge @i.status.badgeClass">@i.count</span>  
+		              <strong>@i.status</strong>
+		            </a>
+		          </li>
+		          }
+	        </ul>
+      	</div>
     </div>
     
+    <!-- menu popover -->
+    <div id="menu" class="popover">
+    	<header class="bar bar-nav">
+    		<h1 class="title">Menu</h1>
+    	</header>
+    	<ul class="table-view">
+    		<li class="table-view-cell">Manage Reports</li>
+     		<li class="table-view-cell">Manage Receipts</li>
+    	</ul>
+    </div>
+
         <!-- Compose modal -->
     <div id="composeModal" class="modal">
       <header class="bar bar-nav">
@@ -48,7 +50,7 @@
         <form class="content-padded" action="/api/v1/parents" method="post">
           <input type="text" name="name" placeholder="Title">
 		  <input type="text" name="date" placeholder="Report date">
-		            <a class="btn btn-positive btn-block" href="#composeModal">Save note</a>
+		  <a class="btn btn-positive btn-block" href="#composeModal">Save note</a>
         </form>
       </div>
     </div><!-- /.modal -->

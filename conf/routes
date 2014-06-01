@@ -25,6 +25,9 @@ DELETE	/api/v1/parents/:id			controllers.Parents.delete(id:Long)
 GET		/detail/:id					controllers.Details.getDetail(id:Long)
 GET		/detail/edit/:id			controllers.Details.editDetail(id:Long)
 POST	/detail/edit/:id			controllers.Details.updateDetail(id:Long)
+#GET		/detail/new					controllers.Details.createDetail
+GET		/detail/new/:parentid		controllers.Details.createDetail(parentid:Long)
+POST	/detail						controllers.Details.saveDetail
 GET		/api/v1/details				controllers.Details.list
 GET		/api/v1/details/:id			controllers.Details.get(id:Long)
 POST	/api/v1/details				controllers.Details.create

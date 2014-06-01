@@ -5,12 +5,6 @@
 
 create table attachment (
   id                        bigint auto_increment not null,
-  created                   datetime not null,
-  constraint pk_attachment primary key (id))
-;
-
-create table attachment (
-  id                        bigint auto_increment not null,
   filename                  varchar(255),
   path                      varchar(255),
   content_type              varchar(255),

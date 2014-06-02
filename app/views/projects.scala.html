@@ -2,29 +2,37 @@
 
 @mobilemain {
 
+
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
     	<a class="icon icon-bars pull-left" href="#menu"></a>
-	    <a class="pull-right" href="#newExpense"><span class="icon icon-plus"></span></a>
+	    <a class="pull-right" href="#projectModal"><span class="icon icon-plus"></span></a>
       	<h1 class="title">@title</h1>
     </header>
 
+	 <div class="bar bar-footer">
+  		<a class="icon icon-left pull-left" href="@routes.Application.index()" data-transition="slide-out"></a>
+  		<a class="icon icon-share pull-right" href="#"></a>
+	</div>
 	
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
    
         <ul class="table-view">
+        	@for(i <- list) {
 	          <li class="table-view-cell parent">
-	            <a class="navigate-right" href="@routes.Parents.getProjects()" data-transition="slide-in">
-	              <span class="badge">@list.size()</span>  
-	              <strong>Projects</strong>
+	            <a class="navigate-right" href="@routes.Details.getDetails(i.id)" data-transition="slide-in">
+	              <span class="badge">@i.details.size()</span>  
+	              <strong>@i.name</strong>
+            	  <div class="date">@i.date.format("YYYY-MM-dd")</div>
 	            </a>
 	          </li>
-	          <li class="table-view-cell parent">
-	            <a class="navigate-right" href="@routes.Details.getUnfiledDetails()" data-transition="slide-in">
-	              <span class="badge">@user.getUnfiledCount()</span>  
-	              <strong>Unfiled</strong>
-	          </li>
+	          }
+	          @for(l <- list.size() to 11) {
+	          	<li class="table-view-cell">
+	          		<span class="table-view-cell filler"></span>
+	          	</li>
+	          	}
         </ul>
     </div>
     

@@ -41,7 +41,23 @@ public class Details extends Controller {
 	public static Result get(Long id) {
 	   return ok(Json.toJson(Detail.find.byId(id)));
 	}
-	   
+	
+	public static Result getDetails(Long parentid) {
+		return redirect(routes.Parents.getParent(parentid));
+	}
+	
+	public static Result getUnfiledDetails() {
+		return redirect(routes.Details.getUnfiledDetails());
+	}
+	
+	public static int getUnfiledCount() {
+		return Detail.find.where()
+				.eq("created_by_email", User.findByEmail(request().username()))
+				.isNull("parent")
+				.findRowCount();
+				
+	}
+	
 	public static Result create() {
 		JsonNode node = request().body().asJson();
 		Detail d = Json.fromJson(node, Detail.class);
@@ -55,6 +71,13 @@ public class Details extends Controller {
 		Logger.info("Detail parent = "+ detailForm.get().parent.id);
 		return ok(createDetail.render(User.findByEmail(request().username()), detailForm));
 	}
+	
+	public static Result createDeet() {
+		Detail detail = new Detail();
+		Form<Detail> detailForm = form(Detail.class).fill(detail);
+		return ok(createDetail.render(User.findByEmail(request().username()), detailForm));
+	}
+
 	
 	public static Result saveDetail() {
 		Form<Detail> detailForm = form(Detail.class).bindFromRequest();

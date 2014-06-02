@@ -6,6 +6,8 @@ package models;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.avaje.ebean.Ebean;
+
 import play.Logger;
 import play.data.format.Formats.NonEmpty;
 import play.data.validation.Constraints.Required;
@@ -55,4 +57,11 @@ public class User extends Model {
         return find.where().eq("email", email).findUnique();
     }
 
+    public int getUnfiledCount() {
+    	return Ebean.find(Detail.class)
+    			.where()
+    			.eq("created_by_email", email)
+    			.isNull("parent")
+    			.findRowCount();
+    }
 }

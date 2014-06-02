@@ -44,6 +44,14 @@ public class Parents extends Controller {
         return ok(Json.toJson(Parent.find.all()));
     }
    
+   public static Result getProjects() {
+	   return ok(projects.render(
+			   "Projects",
+			   Parent.find.where().eq("created_by_email", request().username()).findList(),
+			   User.find.byId(request().username())
+			   ));
+   }
+   
    public static Result get(Long id) {
 	   return ok(Json.toJson(Parent.find.byId(id)));
    }

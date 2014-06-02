@@ -14,12 +14,14 @@ create table attachment (
 
 create table detail (
   id                        bigint auto_increment not null,
+  merchant                  varchar(255),
   name                      varchar(255),
   date                      datetime,
   amount                    decimal(38),
   parent_id                 bigint,
   category                  integer,
   description               varchar(255),
+  created_by_email          varchar(255),
   attachment_id             bigint,
   created                   datetime not null,
   constraint ck_detail_category check (category in (0,1,2,3,4)),
@@ -45,10 +47,12 @@ create table user (
 
 alter table detail add constraint fk_detail_parent_1 foreign key (parent_id) references parent (id) on delete restrict on update restrict;
 create index ix_detail_parent_1 on detail (parent_id);
-alter table detail add constraint fk_detail_attachment_2 foreign key (attachment_id) references attachment (id) on delete restrict on update restrict;
-create index ix_detail_attachment_2 on detail (attachment_id);
-alter table parent add constraint fk_parent_createdBy_3 foreign key (created_by_email) references user (email) on delete restrict on update restrict;
-create index ix_parent_createdBy_3 on parent (created_by_email);
+alter table detail add constraint fk_detail_createdBy_2 foreign key (created_by_email) references user (email) on delete restrict on update restrict;
+create index ix_detail_createdBy_2 on detail (created_by_email);
+alter table detail add constraint fk_detail_attachment_3 foreign key (attachment_id) references attachment (id) on delete restrict on update restrict;
+create index ix_detail_attachment_3 on detail (attachment_id);
+alter table parent add constraint fk_parent_createdBy_4 foreign key (created_by_email) references user (email) on delete restrict on update restrict;
+create index ix_parent_createdBy_4 on parent (created_by_email);
 
 
 

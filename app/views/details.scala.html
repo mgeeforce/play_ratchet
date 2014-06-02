@@ -1,29 +1,28 @@
-@(title:String, report: Parent, user: User)
+@(title:String, list: List[Detail], user: User)
 
 @mobilemain {
 
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
-	    <a class="btn btn-link pull-left" id="edit" href="@routes.Parents.editParent(report.id)">
+	    <a class="btn btn-link pull-left" id="edit" href="#">
 	    	Edit
 	  	</a>
-	   <a class="icon icon-compose pull-right" href="@routes.Details.createDetail(report.id)">
+	   <a class="icon icon-compose pull-right" href="@routes.Details.createDeet()">
 	  	</a>
 	  	<h1 class="title">@title</h1>
     </header>
 
     <div class="bar bar-footer">
-  		<a class="icon icon-left pull-left" href="@routes.Parents.getProjects()" data-transition="slide-out"></a>
+  		<a class="icon icon-left pull-left" href="@routes.Details.getUnfiledDetails()" data-transition="slide-out"></a>
   		<a class="icon icon-share pull-right" href="#"></a>
 	</div>
 	
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-      <div class="report details"><span class="label">Report Total:</span> $@("%.2f".format(report.getTotal())) <span class="pull-right"><span class="label">Status:</span> @report.status</span></div>
-      <div >
+     <div >
         <ul class="table-view">
-        	@for(i <- report.details) {
+        	@for(i <- list) {
 	          <li class="table-view-cell detail">
 	            <a class="navigate-right" href="@routes.Details.getDetail(i.id)" data-transition="slide-in">
 	            	<div>

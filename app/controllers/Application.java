@@ -1,6 +1,7 @@
 package controllers;
 
 import static play.data.Form.form;
+import models.Parent;
 import models.User;
 import play.Logger;
 import play.Routes;
@@ -10,8 +11,14 @@ import views.html.*;
 
 public class Application extends Controller {
 
-    public static Result index() {
-        return redirect(routes.Parents.getSummary());
+	@Security.Authenticated(Secured.class)
+	public static Result index() {
+        return ok(index.render(
+        		"Expenses",
+        		Parent.find.where()
+        			.eq("created_by_email", request().username())
+        			.findList(),
+        		User.find.byId(request().username()) ));
     }
     
     public static Result login() {

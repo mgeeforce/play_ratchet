@@ -11,6 +11,7 @@ GET		/mobile						controllers.Application.mobile
 
 # Parents
 GET		/parents					controllers.Parents.getSummary
+GET		/projects					controllers.Parents.getProjects
 #GET		/parents/new				controllers.Parents.create
 GET		/parents/:status			controllers.Parents.listForStatus(status:String)
 GET		/parent/:id					controllers.Parents.getParent(id:Long)
@@ -23,10 +24,12 @@ DELETE	/api/v1/parents/:id			controllers.Parents.delete(id:Long)
 
 # Children
 GET		/detail/:id					controllers.Details.getDetail(id:Long)
+GET		/details/:parentid			controllers.Details.getDetails(parentid:Long)
 GET		/detail/edit/:id			controllers.Details.editDetail(id:Long)
 POST	/detail/edit/:id			controllers.Details.updateDetail(id:Long)
-#GET		/detail/new					controllers.Details.createDetail
+GET		/detail/new					controllers.Details.createDeet
 GET		/detail/new/:parentid		controllers.Details.createDetail(parentid:Long)
+GET		/details/unfiled			controllers.Details.getUnfiledDetails
 POST	/detail						controllers.Details.saveDetail
 GET		/api/v1/details				controllers.Details.list
 GET		/api/v1/details/:id			controllers.Details.get(id:Long)

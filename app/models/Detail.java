@@ -54,6 +54,10 @@ public class Detail extends Model {
     
     public String description;
     
+    @Required
+    @ManyToOne
+    public User createdBy;
+    
     public enum Category {
     	Accomodation,
     	Fuel,
@@ -65,6 +69,9 @@ public class Detail extends Model {
 	@OneToOne
 	public Attachment attachment;
     
+	//default constructor
+	public Detail() {} 
+	
 	public Detail(Long parentId) {
 		this.parent = Parent.find.byId(parentId);
 	}

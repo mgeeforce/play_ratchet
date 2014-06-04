@@ -4,12 +4,13 @@
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
-    	<a class="icon icon-bars pull-left" href="#menu"></a>
-	    <a class="pull-right" href="#newExpense"><span class="icon icon-plus"></span></a>
+    	<a class="pull-left" href="#menu"><span class="icon icon-bars"></span></a>
+	    <a class="pull-right" href="#newExpense">
+	    	<span class="icon icon-plus"></span>
+	    </a>
       	<h1 class="title">@title</h1>
     </header>
 
-	
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
    
@@ -24,6 +25,7 @@
 	            <a class="navigate-right" href="@routes.Details.getUnfiledDetails()" data-transition="slide-in">
 	              <span class="badge">@user.getUnfiledCount()</span>  
 	              <strong>Unfiled</strong>
+	            </a>
 	          </li>
         </ul>
     </div>
@@ -40,7 +42,7 @@
     </div>
 
     <!-- Compose modal -->
-    <div id="projectModal" class="modal">
+    <div id="newExpense" class="modal">
       <header class="bar bar-nav">
         <a class="icon icon-close pull-right" href="#projectModal"></a>
         <h1 class="title">New project</h1>
@@ -53,5 +55,5 @@
         </form>
       </div>
     </div><!-- /.modal -->
- }
+}
 

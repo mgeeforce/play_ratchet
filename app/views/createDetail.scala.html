@@ -1,11 +1,10 @@
 @(user: User, detailForm: Form[Detail])
 
 @import helper._
-
+@implicitFieldConstructor = @{ FieldConstructor(ratchet2Input.render) } 
 
 
 @mobilemain {
-
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
@@ -14,7 +13,7 @@
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-    			 @if(detailForm.hasErrors) {
+    		@if(detailForm.hasErrors) {
 			 <div style="margin: 15px;">
 			    <div class="alert alert-danger">
 			        <a class="close" data-dismiss="alert">x</a>
@@ -29,15 +28,9 @@
 			    </div>
 			  }
 		@form(action = routes.Details.saveDetail(), 'enctype -> "multipart/form-data") {
-		  <input type="hidden" name="parent.id" value="@detailForm.get().parent.id">
-		  <div class="input-row">
-		  	<label>Project</label>
-		  	<input type="text" value="@detailForm.get().parent.name" readonly>
-		  </div>
-		  <div class="input-row">
-		    <label>Date</label>
-		    <input type="date" name="date" placeholder="2014-03-02">
-		  </div>
+
+		  @select(detailForm("parent.id"), options(Parent.options()), 'class -> "detail", '_label -> "Project")
+		  @inputDate(detailForm("date"), 'class -> "detail", '_label -> "Date", 'placeholder -> "2014-03-02")
 		  <div class="input-row">
 		    <label>Type</label>
 		    <select name="category" class="detail">
@@ -46,28 +39,17 @@
 				}
 		    </select>
 		  </div>
-		  <div class="input-row">
-		    <label>Name</label>
-		    <input type="text" name="name" placeholder="name">
-		  </div>		  
-		  <div class="input-row">
-		    <label>Description</label>
-		    <input type="text" name="description" placeholder="description">
-		  </div>
-		  <div class="input-row">
-		    <label>Amount</label>
-		    <input type="text" name="amount" placeholder="$0.00">
-		  </div>
-		  <div class="input-row">
-		    <label>Attachment</label>
-		    <input class="file" type="file" name="attachment"/>
-		  </div>
+		  @inputText(detailForm("merchant"), 'class -> "detail", '_label -> "Merchant", 'placeholder -> "Name" )
+		  @inputText(detailForm("name"), 'class -> "detail", '_label -> "Name", 'placeholder -> "Name")
+		  @inputText(detailForm("description"), 'class -> "detail", '_label -> "Description", 'placeholder -> "... add comments ...")
+		  @inputText(detailForm("amount"), 'class -> "detail", '_label -> "Amount", 'placeholder -> "$0.00")
+		  @inputFile(detailForm("attachment"), 'class -> "file", '_label -> "Attachment")		
+
 		  <div class="content-padded"><button class="btn btn-positive btn-block">Submit</button></div>	
 }
 		  <div class="content-padded"><a class="btn btn-negative btn-block" href="@routes.Parents.getParent(detailForm.get().parent.id)">Cancel</a></div>				
 
     </div>
     
-
 
 }

@@ -1,0 +1,13 @@
+@(elements: helper.FieldElements)
+
+@***************************************************
+* Support for Ratchet                              *
+***************************************************@
+
+@inputType = @{ elements.args.toMap.get('type).map(_.toString).getOrElse("text") }
+
+<div class="input-row @if(elements.hasErrors){has-error}">
+    <label for="@elements.id">@elements.label</label>
+        @elements.input
+    <span class="help-block col-md-3">@elements.errors.mkString(", ")</span>
+</div>

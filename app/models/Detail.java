@@ -72,8 +72,9 @@ public class Detail extends Model {
 	//default constructor
 	public Detail() {} 
 	
-	public Detail(Long parentId) {
+	public Detail(Long parentId, User user) {
 		this.parent = Parent.find.byId(parentId);
+		this.createdBy = user;
 	}
 	
 	public Detail(String name, BigDecimal amount, String category, String description) {

@@ -66,7 +66,7 @@ public class Details extends Controller {
 	}
 	
 	public static Result createDetail(Long id) {
-		Detail detail = new Detail(id);
+		Detail detail = new Detail(id, User.findByEmail(request().username()));
 		Form<Detail> detailForm = form(Detail.class).fill(detail);
 		Logger.info("Detail parent = "+ detailForm.get().parent.id);
 		return ok(createDetail.render(User.findByEmail(request().username()), detailForm));
@@ -81,11 +81,12 @@ public class Details extends Controller {
 	
 	public static Result saveDetail() {
 		Form<Detail> detailForm = form(Detail.class).bindFromRequest();
-        Detail detail = detailForm.get();
+		Logger.info(detailForm.toString());
 		if (detailForm.hasErrors()) {
 			return badRequest(createDetail.render(User.findByEmail(request().username()), detailForm));
 		}
-        MultipartFormData body = request().body().asMultipartFormData();
+        Detail detail = detailForm.get();
+		MultipartFormData body = request().body().asMultipartFormData();
         FilePart attachment = body.getFile("attachment");
         if (attachment != null) {
             detail.attachment = saveAttachment(attachment);

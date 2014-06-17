@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import models.Parent;
 import models.User;
+import play.Logger;
+import play.data.Form;
+import static play.data.Form.*;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -22,7 +25,7 @@ import views.html.*;
 public class Parents extends Controller {
 	
 	public static Result getSummary() {
-		return ok(list.render("Home", Parent.summaryForUser(request().username()), User.find.byId(request().username())));
+		return ok(list.render("Projects", Parent.summaryForUser(request().username()), User.find.byId(request().username())));
 	}
 	
 	public static Result listForStatus(String status) {
@@ -45,11 +48,29 @@ public class Parents extends Controller {
     }
    
    public static Result getProjects() {
+	   Parent project = new Parent(User.findByEmail(request().username()));
+	   Form<Parent> projectForm = form(Parent.class).fill(project);
 	   return ok(projects.render(
 			   "Projects",
 			   Parent.find.where().eq("created_by_email", request().username()).findList(),
-			   User.find.byId(request().username())
+			   User.find.byId(request().username()),
+			   projectForm
 			   ));
+   }
+   
+   public static Result saveProject() {
+	   Form<Parent> projectForm = form(Parent.class).bindFromRequest();
+	   if(projectForm.hasErrors()) {
+		   Logger.info("projectForm= "+projectForm);
+		   return badRequest(projects.render(
+				   "Projects",
+				   Parent.find.where().eq("created_by_email", request().username()).findList(),
+				   User.find.byId(request().username()),
+				   projectForm
+				   ));
+	   }
+	   projectForm.get().save();
+	   return redirect(routes.Parents.getProjects());
    }
    
    public static Result get(Long id) {

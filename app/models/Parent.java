@@ -92,6 +92,13 @@ public class Parent extends Model {
 
     }
     
+    public Parent() {};
+    
+    public Parent(User user) {
+    	this.createdBy = user;
+    	this.status = Parent.Status.Draft;
+    }
+    
     @JsonIgnore
     public EnumMap<Status, String> getStatusMap() {
         EnumMap<Status, String> statusMap = new EnumMap<Status, String>(Status.class);
@@ -104,7 +111,7 @@ public class Parent extends Model {
     
     @JsonManagedReference
     @OneToMany(cascade=CascadeType.ALL)
-    public List<Detail> details;
+    public List<Item> details;
     
     public BigDecimal getTotal() {
     	BigDecimal total = new BigDecimal(0);

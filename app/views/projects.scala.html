@@ -1,52 +1,42 @@
-@(title:String, list: List[Parent], user: User)
+@(title:String, list: List[Parent], user: User, projectForm: Form[Parent])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(ratchet2Input.render) }
 
 @mobilemain {
 
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
-    	<a class="icon icon-bars pull-left" href="#menu"></a>
-	    <a class="pull-right" href="#projectModal"><span class="icon icon-plus"></span></a>
+	    <a class="icon icon-plus pull-right" href="#projectModal"></a>
       	<h1 class="title">@title</h1>
     </header>
+    @footer()
+	@secondaryFooter(
+		'leftLink -> routes.Parents.getSummary(),
+    	'leftLabel -> "Manage Projects",
+    	'rightLink -> routes.Details.getUnfiledDetails(),
+    	'rightLabel -> "Manage Receipts"
+		)
 
-	 <div class="bar bar-footer">
-  		<a class="icon icon-left pull-left" href="@routes.Application.index()" data-transition="slide-out"></a>
-  		<a class="icon icon-share pull-right" href="#"></a>
-	</div>
-	
+
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-   
         <ul class="table-view">
         	@for(i <- list) {
 	          <li class="table-view-cell parent">
 	            <a class="navigate-right" href="@routes.Details.getDetails(i.id)" data-transition="slide-in">
+	              @if(i.status != Parent.Status.Draft) {<i class="fa fa-lock"></i></span>}
 	              <span class="badge">@i.details.size()</span>  
 	              <strong>@i.name</strong>
             	  <div class="date">@i.date.format("YYYY-MM-dd")</div>
 	            </a>
 	          </li>
 	          }
-	          @for(l <- list.size() to 11) {
-	          	<li class="table-view-cell">
-	          		<span class="table-view-cell filler"></span>
-	          	</li>
-	          	}
         </ul>
     </div>
     
-    <!-- menu popover -->
-    <div id="menu" class="popover">
-    	<header class="bar bar-nav">
-    		<h1 class="title">Menu</h1>
-    	</header>
-    	<ul class="table-view">
-    		<li class="table-view-cell">Manage Reports</li>
-     		<li class="table-view-cell">Manage Receipts</li>
-    	</ul>
-    </div>
-
     <!-- Compose modal -->
     <div id="projectModal" class="modal">
       <header class="bar bar-nav">
@@ -54,12 +44,15 @@
         <h1 class="title">New project</h1>
       </header>
       <div class="content">
-        <form class="content-padded" action="/api/v1/parents" method="POST">
-          <input type="text" name="name" placeholder="Name">
-		  <input type="date" name="date" placeholder="Report date">
-		  <input type="submit">
-        </form>
+      	@form(action = routes.Parents.saveProject()) {
+            @inputHidden(projectForm("createdBy.email"))
+      		@inputText(projectForm("name"), 'placeholder -> "Project Name")
+      		@inputDate(projectForm("date"))
+      		@inputHidden(projectForm("status"))
+		    <button type="submit" class="btn btn-outlined btn-block btn-primary">Submit</button>
+			}
       </div>
-    </div><!-- /.modal -->
+    </div>
+    <!-- /.modal -->
  }
 

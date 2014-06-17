@@ -1,16 +1,27 @@
 @(title:String, list: List[Parent], user: User)
 
+@import helper._
+
 @mobilemain {
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
-    	<a class="pull-left" href="#menu"><span class="icon icon-bars"></span></a>
-	    <a class="pull-right" href="#newExpense">
-	    	<span class="icon icon-plus"></span>
-	    </a>
+	    <a href="@routes.Application.logout()">
+	    	<button class="btn btn-link btn-nav pull-left">
+	    		<span class="icon icon-left-nav"></span>
+	    		Log Out
+	  		</button>
+	  	</a>
       	<h1 class="title">@title</h1>
     </header>
-
+    @footer()
+	@secondaryFooter(
+		'leftLink -> routes.Parents.getSummary(),
+    	'leftLabel -> "Manage Projects",
+    	'rightLink -> routes.Details.getUnfiledDetails(),
+    	'rightLabel -> "Manage Receipts"
+		)
+		
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
    
@@ -29,31 +40,6 @@
 	          </li>
         </ul>
     </div>
-    
-    <!-- menu popover -->
-    <div id="menu" class="popover">
-    	<header class="bar bar-nav">
-    		<h1 class="title">Menu</h1>
-    	</header>
-    	<ul class="table-view">
-    		<li class="table-view-cell">Manage Reports</li>
-     		<li class="table-view-cell">Manage Receipts</li>
-    	</ul>
-    </div>
 
-    <!-- Compose modal -->
-    <div id="newExpense" class="modal">
-      <header class="bar bar-nav">
-        <a class="icon icon-close pull-right" href="#projectModal"></a>
-        <h1 class="title">New project</h1>
-      </header>
-      <div class="content">
-        <form class="content-padded" action="/api/v1/parents" method="POST">
-          <input type="text" name="name" placeholder="Name">
-		  <input type="date" name="date" placeholder="Report date">
-		  <input type="submit">
-        </form>
-      </div>
-    </div><!-- /.modal -->
 }
 

@@ -1,0 +1,28 @@
+@**
+* Generates the popup menu for the header
+*
+* Example:
+* {{{
+*   @menuPopover(args = 'data-ref -> 0)
+* }}}
+*
+* @param args Set of attributes..
+*@
+@(args: (Symbol,Any)*)
+
+@title = @{ args.toMap.get('title).map(_.toString).getOrElse("Menu") }
+@projects = @{ args.toMap.get('projects).map(_.toString).getOrElse("/projects") }
+@projectsLabel = @{ args.toMap.get('projectsLabel).map(_.toString).getOrElse("Projects") }
+@receipts = @{ args.toMap.get('receipts).map(_.toString).getOrElse("/receipts") }
+@receiptsLabel = @{ args.toMap.get('receiptsLabel).map(_.toString).getOrElse("Receipts") }
+
+    <!-- menu popover -->
+    <div id="menu" class="popover">
+    	<header class="bar bar-nav">
+    		<h1 class="title">@title</h1>
+    	</header>
+    	<ul class="table-view">
+    		<a href="@projects"><li class="table-view-cell">@projectsLabel</li></a>
+     		<a href="@receipts"><li class="table-view-cell">@receiptsLabel</li></a>
+    	</ul>
+    </div>

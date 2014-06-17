@@ -4,19 +4,13 @@
 
 @implicitFieldConstructor = @{ FieldConstructor(ratchet2Input.render) }
 
-@parentRoute = @{
-	if (detailForm("parent.id").value != null) {
-		routes.Parents.getParent(Long.valueOf(detailForm("parent.id").value))
-	} else {
-		routes.Parents.getProjects()
-	}
-}
+@parentId = @{Long.valueOf(detailForm("parent.id").value)} 
 
 @mobilemain {
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
-      	<h1 class="title">Create Item</h1>
+      	<h1 class="title">Create Transaction</h1>
     </header>
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
@@ -37,17 +31,18 @@
 			  }
 		@form(action = routes.Details.saveDetail(), 'enctype -> "multipart/form-data") {
 		  @inputHidden(detailForm("createdBy.email"))
-		  @select(detailForm("parent.id"), options(Parent.options()), '_default -> "... Pick a project ...", 'class -> "detail", '_label -> "Project")
+		  @select(detailForm("parent.id"), options(Parent.options()), 'class -> "detail", '_label -> "Project")
 		  @inputDate(detailForm("date"), 'class -> "detail", '_label -> "Date", 'placeholder -> "2014-03-02")
 		  @select(detailForm("category"), options(Item.Category.values().toSeq.map(_.toString)), 'class -> "detail", '_default -> "Choose a category ..." )
 		  @inputText(detailForm("merchant"), 'class -> "detail", '_label -> "Merchant", 'placeholder -> "Merchant" )
+		  @inputText(detailForm("name"), 'class -> "detail", '_label -> "Name", 'placeholder -> "Name")
 		  @inputText(detailForm("description"), 'class -> "detail", '_label -> "Description", 'placeholder -> "... add comments ...")
 		  @inputText(detailForm("amount"), 'class -> "detail", '_label -> "Amount", 'placeholder -> "$0.00")
 		  @inputFile(detailForm("attachment"), 'class -> "file", '_label -> "Attachment")		
 
 		  <div class="content-padded"><button class="btn btn-primary btn-block btn-outlined">Submit</button></div>	
 }
-		  <div class="content-padded"><a class="btn btn-negative btn-block btn-outlined" href="@parentRoute">Cancel</a></div>				
+		  <div class="content-padded"><a class="btn btn-negative btn-block btn-outlined" href="@routes.Parents.getParent(parentId)">Cancel</a></div>				
 
     </div>
     

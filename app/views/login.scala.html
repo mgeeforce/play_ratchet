@@ -5,13 +5,12 @@
 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
-      <h1 class="title">Mobile App</h1>
+      <h1 class="title">Race Office</h1>
     </header>
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
       <p class="content-padded">Thanks for downloading Ratchet. Check out some Ratchet resources:</p>
-      <div class="card">
 		@helper.form(routes.Application.authenticate) {
 			@if(form.hasGlobalErrors) {
 			    <p class="error">
@@ -22,7 +21,6 @@
 		  <input type="password" name="password" placeholder="password">
 		  <button class="btn btn-primary btn-block">Login</button>
 		}
-      </div>
     </div>
 
 

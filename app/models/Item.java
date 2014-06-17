@@ -10,11 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.avaje.ebean.Page;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -24,7 +26,8 @@ import play.db.ebean.Model;
  *
  */
 @Entity
-public class Detail extends Model {
+@Table(name="detail")
+public class Item extends Model {
 
     private static final long serialVersionUID = 1L;
 
@@ -66,18 +69,23 @@ public class Detail extends Model {
     	Admin
     }
     
+    
 	@OneToOne
 	public Attachment attachment;
     
 	//default constructor
-	public Detail() {} 
+	public Item() {} 
 	
-	public Detail(Long parentId, User user) {
+	public Item(User user) {
+		this.createdBy = user;
+	}
+	
+	public Item(Long parentId, User user) {
 		this.parent = Parent.find.byId(parentId);
 		this.createdBy = user;
 	}
 	
-	public Detail(String name, BigDecimal amount, String category, String description) {
+	public Item(String name, BigDecimal amount, String category, String description) {
 		this.name = name;
 		this.amount = amount;
 		this.category = Category.valueOf(category);
@@ -87,7 +95,7 @@ public class Detail extends Model {
     /**
      * Generic query helper for entity Computer with id Long
      */
-    public static Finder<Long,Detail> find = new Finder<Long,Detail>(Long.class, Detail.class); 
+    public static Finder<Long,Item> find = new Finder<Long,Item>(Long.class, Item.class); 
     
     /**
      * Return a page of details
@@ -98,7 +106,7 @@ public class Detail extends Model {
      * @param order Sort order (either or asc or desc)
      * @param filter Filter applied on the name column
      */
-    public static Page<Detail> page(int page, int pageSize, String sortBy, String order, String filter) {
+    public static Page<Item> page(int page, int pageSize, String sortBy, String order, String filter) {
         return 
             find.where()
                 .ilike("name", "%" + filter + "%")

@@ -36,7 +36,7 @@ public class Application extends Controller {
             session("email", loginForm.get().email);
             Logger.info("authentication successfull");
             return redirect(
-                routes.Parents.getSummary()
+                routes.Parents.getProjects()
             );
         }
     }

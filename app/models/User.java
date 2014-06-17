@@ -3,8 +3,11 @@
  */
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.avaje.ebean.Ebean;
 
@@ -33,6 +36,9 @@ public class User extends Model {
     @Required
     public String password;
     
+    @OneToMany
+    public List<Parent> parents;
+    
     
     public User(String email, String name, String password) {
       this.email = email;
@@ -58,7 +64,7 @@ public class User extends Model {
     }
 
     public int getUnfiledCount() {
-    	return Ebean.find(Detail.class)
+    	return Ebean.find(Item.class)
     			.where()
     			.eq("created_by_email", email)
     			.isNull("parent")

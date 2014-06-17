@@ -2,6 +2,7 @@
 	  font-size: 13px;
 	padding-top: 8px;
     padding-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .detail .date {
@@ -14,6 +15,17 @@
 	font-size: 11px;
 	color: #777;
 	line-height: 1.1;
+}
+
+.parent .fa {
+	/*color: #D8CE98;*/
+	padding-bottom: 3px;
+	padding-left: 9px;
+	padding-right: 9px;
+	padding-top: 2px;
+	position: absolute;
+	right: 60px;
+	top: 17px;
 }
 
 .detail .deets {
@@ -38,9 +50,9 @@
 	font-weight: bold;
 }
 select.detail  {
-	width: 203px;
 	margin-top: 5px;
 	margin-right: 5px;
+	align: center;
 }
 
 .input-row {
@@ -97,19 +109,28 @@ select.detail  {
 }
 
 .title {
-	background-color: #001C58;
+	/*background-color: #001C58;*/
 }
 
+.bar .fa {
+	position: relative;
+z-index: 20;
+padding-top: 10px;
+padding-bottom: 10px;
+font-size: 24px;
+}
 .bar-nav .title {
-	color: #ffffff;
+	/*color: #ffffff;*/
 }
 
 .bar-nav a.icon {
-	color: #fff;
+	/*color: #fff;
+	text-decoration: none;*/
 }
 
 .bar-nav a.btn {
 	color: #fff;
+	text-decoration: none;
 }
 
 .report.details {

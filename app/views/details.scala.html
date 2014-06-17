@@ -1,4 +1,4 @@
-@(title:String, list: List[Detail], user: User)
+@(title:String, list: List[Item], user: User)
 
 @mobilemain {
 
@@ -14,7 +14,7 @@
     </header>
 
     <div class="bar bar-footer">
-  		<a class="icon icon-left pull-left" href="@routes.Details.getUnfiledDetails()" data-transition="slide-out"></a>
+  		<a class="icon icon-left pull-left" href="@routes.Application.index()" data-transition="slide-out"></a>
   		<a class="icon icon-share pull-right" href="#"></a>
 	</div>
 	

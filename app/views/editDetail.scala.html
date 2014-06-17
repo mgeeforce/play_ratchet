@@ -1,4 +1,4 @@
-@(detail: Detail, user: User, detailForm: Form[Detail])
+@(detail: Item, user: User, detailForm: Form[Item])
 
 @import helper._
 
@@ -43,7 +43,7 @@
 		  <div class="input-row">
 		    <label>Type</label>
 		    <select name="category" class="detail">
-		    	@for((option) <- Detail.Category.values()) {
+		    	@for((option) <- Item.Category.values()) {
 		    		<option value="@option">@option</option>
 				}
 		    </select>

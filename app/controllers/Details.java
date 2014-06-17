@@ -16,30 +16,32 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Controller;
+import play.mvc.Security;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 import views.html.*;
 import static play.data.Form.*;
 
 
+@Security.Authenticated(Secured.class)
 public class Details extends Controller {
 	
 	public static Result getDetail(Long id) {
-		return ok(detail.render(Detail.find.byId(id), User.findByEmail(request().username())));
+		return ok(detail.render(Item.find.byId(id), User.findByEmail(request().username())));
 	}
 	
 	public static Result editDetail(Long id) {
-		Detail d = Detail.find.byId(id);
-		Form<Detail> form = form(Detail.class).fill(d);
+		Item d = Item.find.byId(id);
+		Form<Item> form = form(Item.class).fill(d);
 		return ok(editDetail.render(d, User.findByEmail(request().username()), form));
 	}
 	
 	public static Result list() {
-	    return ok(Json.toJson(Detail.find.all()));
+	    return ok(Json.toJson(Item.find.all()));
 	}
 	   
 	public static Result get(Long id) {
-	   return ok(Json.toJson(Detail.find.byId(id)));
+	   return ok(Json.toJson(Item.find.byId(id)));
 	}
 	
 	public static Result getDetails(Long parentid) {
@@ -47,52 +49,57 @@ public class Details extends Controller {
 	}
 	
 	public static Result getUnfiledDetails() {
-		return redirect(routes.Details.getUnfiledDetails());
-	}
+		User user = User.findByEmail(request().username());
+		return ok(details.render(
+				"details",
+				Item.find.where().eq("created_by_email", user.email).isNull("parent_id").findList(),
+				user
+			));
+		}
 	
 	public static int getUnfiledCount() {
-		return Detail.find.where()
-				.eq("created_by_email", User.findByEmail(request().username()))
-				.isNull("parent")
+		return Item.find.where()
+				.eq("created_by_email", User.findByEmail(request().username()).email)
+				.isNull("parent_id")
 				.findRowCount();
 				
 	}
 	
 	public static Result create() {
 		JsonNode node = request().body().asJson();
-		Detail d = Json.fromJson(node, Detail.class);
+		Item d = Json.fromJson(node, Item.class);
 		d.save();
 		return ok(Json.toJson(d));
 	}
 	
 	public static Result createDetail(Long id) {
-		Detail detail = new Detail(id, User.findByEmail(request().username()));
-		Form<Detail> detailForm = form(Detail.class).fill(detail);
-		Logger.info("Detail parent = "+ detailForm.get().parent.id);
+		Item detail = new Item(id, User.findByEmail(request().username()));
+		Form<Item> detailForm = form(Item.class).fill(detail);
 		return ok(createDetail.render(User.findByEmail(request().username()), detailForm));
 	}
 	
 	public static Result createDeet() {
-		Detail detail = new Detail();
-		Form<Detail> detailForm = form(Detail.class).fill(detail);
+		Logger.info("in createDeet");
+		Item detail = new Item(User.findByEmail(request().username()));
+		Form<Item> detailForm = form(Item.class).fill(detail);
 		return ok(createDetail.render(User.findByEmail(request().username()), detailForm));
 	}
 
 	
 	public static Result saveDetail() {
-		Form<Detail> detailForm = form(Detail.class).bindFromRequest();
-		Logger.info(detailForm.toString());
+		Form<Item> detailForm = form(Item.class).bindFromRequest();
 		if (detailForm.hasErrors()) {
 			return badRequest(createDetail.render(User.findByEmail(request().username()), detailForm));
 		}
-        Detail detail = detailForm.get();
+        Item detail = detailForm.get();
 		MultipartFormData body = request().body().asMultipartFormData();
         FilePart attachment = body.getFile("attachment");
         if (attachment != null) {
             detail.attachment = saveAttachment(attachment);
         }
         if(detail.attachment != null) {Logger.info("Detail.attachment.id = "+detail.attachment.id);};
-		detail.save();
+		//detail.createdBy = User.findByEmail(request().username());
+        detail.save();
 		return redirect(routes.Details.getDetail(detail.id));
 	}
 	
@@ -118,7 +125,7 @@ public class Details extends Controller {
 	
 	public static Result delete(Long id) {
 	   try {
-		   Detail.find.ref(id).delete();
+		   Item.find.ref(id).delete();
 		   return ok("Detail " + id + " deleted.");
 	   } catch (Exception e) {
 		   return ok("A problem was encountered.");
@@ -127,19 +134,18 @@ public class Details extends Controller {
 	   
 	public static Result update(Long id) {
 	   JsonNode node = request().body().asJson();
-	   Detail d = Json.fromJson(node, Detail.class);
+	   Item d = Json.fromJson(node, Item.class);
 	   d.update(id);
 	   return ok(Json.toJson(d));
 	}
 	
 	public static Result updateDetail(Long id) {
-	   Detail d = Detail.find.byId(id);
-	   Form<Detail> detailForm = form(Detail.class).bindFromRequest();
+	   Item d = Item.find.byId(id);
+	   Form<Item> detailForm = form(Item.class).bindFromRequest();
 	   if(detailForm.hasErrors()) {
 		   return badRequest(editDetail.render(d, User.findByEmail(request().username()), detailForm));
 	   }
-	   //handle a change in file upload
-	   
+	   Logger.info("in update "+detailForm);	   
 	   detailForm.get().update(id);
 	   flash("success", "Detail has been updated.");
 	   return redirect(routes.Details.getDetail(id));
